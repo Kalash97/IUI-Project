@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,4 +19,7 @@ public class Hotel {
 
     @ManyToOne
     private Address address;
+
+    @ManyToMany(mappedBy = "hotels")
+    private List<Trip> trips;
 }
