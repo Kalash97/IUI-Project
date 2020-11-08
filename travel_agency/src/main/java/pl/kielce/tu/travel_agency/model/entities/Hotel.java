@@ -1,4 +1,4 @@
-package pl.kielce.tu.travel_agency.model;
+package pl.kielce.tu.travel_agency.model.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,14 +9,17 @@ import java.util.List;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name="COUNTRY")
-public class Country {
+@Table(name="HOTEL")
+public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String name;
 
-    @OneToMany(mappedBy = "country")
-    private List<City> cities;
+    @ManyToOne
+    private Address address;
+
+    @ManyToMany(mappedBy = "hotels")
+    private List<Trip> trips;
 }

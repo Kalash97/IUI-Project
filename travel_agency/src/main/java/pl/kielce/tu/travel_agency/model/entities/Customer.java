@@ -1,4 +1,4 @@
-package pl.kielce.tu.travel_agency.model;
+package pl.kielce.tu.travel_agency.model.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
