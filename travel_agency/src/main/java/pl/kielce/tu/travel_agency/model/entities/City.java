@@ -1,16 +1,17 @@
-package pl.kielce.tu.travel_agency.model;
+package pl.kielce.tu.travel_agency.model.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name="HOTEL")
-public class Hotel {
+@Table(name="CITY")
+public class City implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -18,8 +19,8 @@ public class Hotel {
     private String name;
 
     @ManyToOne
-    private Address address;
+    private Country country;
 
-    @ManyToMany(mappedBy = "hotels")
-    private List<Trip> trips;
+    @OneToMany(mappedBy = "city")
+    private List<Address> addresses;
 }
