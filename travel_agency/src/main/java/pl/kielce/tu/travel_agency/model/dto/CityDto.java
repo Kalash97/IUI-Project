@@ -1,8 +1,7 @@
-package pl.kielce.tu.travel_agency.dto;
+package pl.kielce.tu.travel_agency.model.dto;
 
 import lombok.Data;
 import pl.kielce.tu.travel_agency.model.entities.City;
-import pl.kielce.tu.travel_agency.model.entities.Country;
 
 @Data
 public class CityDto {
