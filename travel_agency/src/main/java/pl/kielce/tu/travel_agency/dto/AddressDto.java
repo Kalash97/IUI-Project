@@ -1,9 +1,11 @@
 package pl.kielce.tu.travel_agency.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.kielce.tu.travel_agency.model.entities.Address;
 
 @Data
+@NoArgsConstructor
 public class AddressDto {
     private long id;
 
