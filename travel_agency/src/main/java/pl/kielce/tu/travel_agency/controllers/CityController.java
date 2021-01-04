@@ -7,6 +7,7 @@ import pl.kielce.tu.travel_agency.dto.CityDto;
 
 import java.util.List;
 
+@RestController
 public class CityController {
     @GetMapping("mvc/city/all-citys")
     public ResponseEntity<List<CityDto>> getAllCitys() {

@@ -16,6 +16,9 @@ import org.springframework.security.web.authentication.logout.HttpStatusReturnin
 import org.springframework.web.bind.annotation.CrossOrigin;
 import pl.kielce.tu.travel_agency.security.CustomUserDetailsService;
 import pl.kielce.tu.travel_agency.security.RestAuthenticationEntryPoint;
+import pl.kielce.tu.travel_agency.security.SecurityUtils;
+import pl.kielce.tu.travel_agency.security.jwt.JWTConfigurer;
+import pl.kielce.tu.travel_agency.security.jwt.JWTTokenProvider;
 
 @Configuration
 @EnableWebSecurity
@@ -28,11 +31,17 @@ public class WebApplicationConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomUserDetailsService userDetailsService;
 
+    private final JWTTokenProvider tokenProvider;
+
+    private final SecurityUtils utils;
+
     @Autowired
     public WebApplicationConfig(RestAuthenticationEntryPoint restAuthenticationEntryPoint,
-                                CustomUserDetailsService userDetailsService) {
+                                CustomUserDetailsService userDetailsService, JWTTokenProvider tokenProvider, SecurityUtils utils) {
         this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
         this.userDetailsService = userDetailsService;
+        this.tokenProvider = tokenProvider;
+        this.utils = utils;
     }
 
     @Bean("authenticationManager")
@@ -65,14 +74,20 @@ public class WebApplicationConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .anyRequest()
+                .antMatchers("/user/authenticate", "/user/register")
                 .permitAll()
                 .and()
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated()
+                .and()
                 .logout()
-                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK));
-//                .and()
-//                .apply()
+                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
+                .and()
+                .apply(securityConfigurerAdapter());
+    }
 
-
+    private JWTConfigurer securityConfigurerAdapter() {
+        return new JWTConfigurer(tokenProvider, utils);
     }
 }
