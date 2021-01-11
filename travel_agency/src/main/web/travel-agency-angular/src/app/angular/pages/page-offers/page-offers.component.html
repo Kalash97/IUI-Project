@@ -1,0 +1,65 @@
+<page-body>
+
+  <div class="menu">
+    <ul>
+      <li *ngFor="let opt of menuOptions" (click)="clickedMenuItem(opt)">{{opt.label}}</li>
+    </ul>
+  </div>
+
+  <div class="content">
+    <div *ngIf="isOptionActive(1)">
+      <h2>Wszystkie Oferty:</h2>
+      <table>
+        <tr>
+          <th>Data startu</th>
+          <th>Czas trwania</th>
+          <th>Status</th>
+        </tr>
+        <tr *ngFor="let trip of allOffers">
+          <td>{{trip.startingDate}}</td>
+          <td>{{trip.duration}}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div *ngIf="isOptionActive(2)">
+      <h2>Aktualne Oferty:</h2>
+      <table>
+        <tr>
+          <th>Data startu</th>
+          <th>Czas trwania</th>
+          <th>Status</th>
+        </tr>
+        <tr *ngFor="let trip of allOffers">
+          <td>{{trip.startingDate}}</td>
+          <td>{{trip.duration}}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div *ngIf="isOptionActive(3)">
+      <h2>Dodaj nową ofertę:</h2>
+      <form>
+        <label>
+          <input type="text" />Data startu<br />
+        </label>
+        <label>
+          <input type="text" />Czas trwania<br />
+        </label>
+        <button type="submit">Zatwierdź</button>
+      </form>
+    </div>
+
+    <div *ngIf="isOptionActive(4)">
+      <h2>Wyszukaj ofertę:</h2>
+      <form>
+        <label>
+          <input type="text" />Data startu<br />
+        </label>
+        <button type="submit">Zatwierdź</button>
+      </form>
+    </div>
+
+  </div>
+
+</page-body>

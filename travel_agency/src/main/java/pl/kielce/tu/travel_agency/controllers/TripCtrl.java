@@ -3,14 +3,13 @@ package pl.kielce.tu.travel_agency.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.kielce.tu.travel_agency.dto.TripDto;
-import pl.kielce.tu.travel_agency.model.entities.Trip;
+import pl.kielce.tu.travel_agency.model.dto.TripDto;
 import pl.kielce.tu.travel_agency.services.TripService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/mvc/trip")
 public class TripCtrl {
 
     @Autowired
@@ -24,27 +23,28 @@ public class TripCtrl {
 //                .collect(Collectors.toList())
 //        );
 //    }
-    @GetMapping("mvc/trip/all-trips")
+
+    @GetMapping("/all-trips")
     public ResponseEntity<List<TripDto>> getAllTrips() {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("mvc/trip/id/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<TripDto> getTripById(@PathVariable String id) {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("mvc/trip/add")
+    @PostMapping("/add")
     public ResponseEntity<TripDto> addTrip(@RequestBody TripDto trip) {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("mvc/trip/edit")
+    @PutMapping("/edit")
     public ResponseEntity<TripDto> editTrip(@RequestBody TripDto trip) {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("mvc/trip/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteTrip(@PathVariable String id) {
         return ResponseEntity.ok().build();
     }

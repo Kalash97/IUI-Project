@@ -1,0 +1,32 @@
+:host {
+  .banner {
+    height: 90px;
+
+    background-image: url("./../../../../assets/images/banner.jpg");
+    background-size : contain;
+  }
+
+  .pages-select {
+    background-color: #ffffff85;
+    border-radius   : 15px;
+    margin-top      : 20px;
+    height          : 40px;
+    display         : flex;
+    justify-content : space-evenly;
+
+    .btn {
+      display        : flex;
+      border         : 1px solid black;
+      align-items    : center;
+      min-width      : 170px;
+      justify-content: space-evenly;
+      cursor         : pointer;
+      border-radius  : 7px;
+      margin         : 2px;
+
+      &.btn-active {
+        background-color: #ff5858;
+      }
+    }
+  }
+}
