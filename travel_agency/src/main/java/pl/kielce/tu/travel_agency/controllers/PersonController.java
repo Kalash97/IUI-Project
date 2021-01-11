@@ -2,7 +2,7 @@ package pl.kielce.tu.travel_agency.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.kielce.tu.travel_agency.dto.PersonDto;
+import pl.kielce.tu.travel_agency.model.dto.PersonDto;
 
 @RestController
 public class PersonController {

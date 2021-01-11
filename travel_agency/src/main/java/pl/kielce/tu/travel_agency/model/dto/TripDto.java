@@ -26,11 +26,5 @@ public class TripDto {
         this.id = trip.getId();
         this.startingDate = trip.getStartingDate();
         this.duration = trip.getDuration();
-        this.tickets = trip
-                .getTickets()
-                .stream()
-                .map(TicketDto::new)
-                .peek(ticketDto -> ticketDto.setTrip(null))
-                .collect(Collectors.toList());
     }
 }
