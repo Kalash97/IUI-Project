@@ -6,6 +6,7 @@ import pl.kielce.tu.travel_agency.model.dto.CityDto;
 
 import java.util.List;
 
+@RestController
 @RequestMapping("/mvc/city")
 public class CityController {
 

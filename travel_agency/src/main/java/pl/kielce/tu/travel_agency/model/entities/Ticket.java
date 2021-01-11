@@ -1,5 +1,6 @@
 package pl.kielce.tu.travel_agency.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,6 +23,7 @@ public class Ticket implements Serializable {
     @ManyToOne
     private Trip trip;
 
+    @JsonManagedReference
     @ManyToOne
-    private Customer customer;
+    private Person person;
 }

@@ -9,8 +9,13 @@ import pl.kielce.tu.travel_agency.model.repositories.TripRepo;
 @Service
 public class TripService extends AbstractEntityService<Trip> {
 
+    private final TripRepo repo;
+
     @Autowired
-    private TripRepo repo;
+    public TripService(TripRepo repo) {
+        this.repo = repo;
+    }
+
 
     @Override
     public JpaRepository getEntityRepository() {

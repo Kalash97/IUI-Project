@@ -1,5 +1,6 @@
 package pl.kielce.tu.travel_agency.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Table(name="CUSTOMER")
-public class Customer implements Serializable {
+public class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -21,13 +22,18 @@ public class Customer implements Serializable {
 
     private String password;
 
-    private String name;
+    private String firstname;
 
     private String lastname;
 
     @OneToOne
     private Insurance insurance;
 
-    @OneToMany(mappedBy = "customer")
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "person")
     private List<Ticket> tickets;
 }
+
