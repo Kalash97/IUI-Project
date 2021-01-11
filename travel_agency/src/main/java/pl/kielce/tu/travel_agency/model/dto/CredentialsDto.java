@@ -1,4 +1,4 @@
-package pl.kielce.tu.travel_agency.dto;
+package pl.kielce.tu.travel_agency.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
