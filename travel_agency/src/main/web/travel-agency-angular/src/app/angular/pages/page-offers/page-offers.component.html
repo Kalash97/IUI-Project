@@ -2,12 +2,12 @@
 
   <div class="menu">
     <ul>
-      <li *ngFor="let opt of menuOptions" (click)="clickedMenuItem(opt)">{{opt.label}}</li>
+      <li *ngFor="let opt of getMenuOptions()" (click)="clickedMenuOption(opt)">{{opt.label}}</li>
     </ul>
   </div>
 
   <div class="content">
-    <div *ngIf="isOptionActive(1)">
+    <div *ngIf="isMenuOptionActive(1)">
       <h2>Wszystkie Oferty:</h2>
       <table>
         <tr>
@@ -22,7 +22,7 @@
       </table>
     </div>
 
-    <div *ngIf="isOptionActive(2)">
+    <div *ngIf="isMenuOptionActive(2)">
       <h2>Aktualne Oferty:</h2>
       <table>
         <tr>
@@ -37,24 +37,27 @@
       </table>
     </div>
 
-    <div *ngIf="isOptionActive(3)">
+    <div *ngIf="isMenuOptionActive(3)">
       <h2>Dodaj nową ofertę:</h2>
+      <form [formGroup]="formCreateTrip" (ngSubmit)="createNewTrip()">
+        <label>
+          <input type="text" formControlName="startingDate">Data startu<br />
+        </label>
+        <label>
+          <input type="text" formControlName="duration">Czas trwania<br />
+        </label>
+        <button type="submit">Zatwierdź</button>
+      </form>
+    </div>
+
+    <div *ngIf="isMenuOptionActive(4)">
+      <h2>Wyszukaj ofertę:</h2>
       <form>
         <label>
           <input type="text" />Data startu<br />
         </label>
         <label>
           <input type="text" />Czas trwania<br />
-        </label>
-        <button type="submit">Zatwierdź</button>
-      </form>
-    </div>
-
-    <div *ngIf="isOptionActive(4)">
-      <h2>Wyszukaj ofertę:</h2>
-      <form>
-        <label>
-          <input type="text" />Data startu<br />
         </label>
         <button type="submit">Zatwierdź</button>
       </form>

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ITrip } from './backend-dtos';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +14,8 @@ export class OffersService {
     this.http = http;
   }
 
-  getAllTrips() {
-    return this.http.get(this.endpointRoot + '/all-trips');
+  getAllTrips(): Observable<ITrip[]> {
+    return this.http.get<ITrip[]>(this.endpointRoot + '/all-trips');
   }
 
   createNewTrip(trip) {

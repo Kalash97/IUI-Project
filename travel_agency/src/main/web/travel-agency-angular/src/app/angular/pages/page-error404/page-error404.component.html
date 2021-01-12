@@ -1,8 +1,13 @@
 <page-body>
 
+  <div class="menu">
+    <ul>
+      <li *ngFor="let opt of getMenuOptions()" (click)="clickedMenuOption(opt)">{{opt.label}}</li>
+    </ul>
+  </div>
+
   <div class="content">
     Poszukiwany zasób nie istnieje...
   </div>
 
 </page-body>
-

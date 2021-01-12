@@ -13,5 +13,4 @@ public class HomepageCtrl {
         modelAndView.setViewName("index.html");
         return modelAndView;
     }
-
 }

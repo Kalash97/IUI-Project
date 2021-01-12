@@ -1,7 +1,9 @@
 <page-body>
 
   <div class="menu">
-    men
+    <ul>
+      <li *ngFor="let opt of getMenuOptions()" (click)="clickedMenuOption(opt)">{{opt.label}}</li>
+    </ul>
   </div>
 
   <div class="content">

@@ -1,40 +1,47 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { ITrip } from '../../services/backend-dtos';
 import { OffersService } from '../../services/offers-service.service';
+import { PageComponent } from '../page-component';
 
 @Component({
   selector: 'page-offers',
   templateUrl: './page-offers.component.html',
   styleUrls: ['./page-offers.component.less']
 })
-export class PageOffersComponent implements OnInit {
+export class PageOffersComponent extends PageComponent implements OnInit {
 
-  menuOptions = [
-    { id: '1', label: 'Wszystkie oferty' },
-    { id: '2', label: 'Dostępne oferty' },
-    { id: '3', label: 'Dodaj ofertę' },
-    { id: '4', label: 'Wyszukaj oferty' }
-  ];
+  allOffers: ITrip[];
 
-  selectedMenuOption = this.menuOptions[0];
+  selectedTrip: ITrip = null;
 
-  allOffers = [];
+  formCreateTrip;
 
-  constructor(private offersService: OffersService) {
-    this.offersService = offersService;
+  constructor(private offersService: OffersService, private formBuilder: FormBuilder) {
+    super();
   }
 
   ngOnInit(): void {
-    this.offersService.getAllTrips().subscribe((response) => {
-      // this.allOffers = response;
+    this.setUpMenuOptions([
+      { id: '1', label: 'Wszystkie oferty' },
+      { id: '2', label: 'Dostępne oferty' },
+      { id: '3', label: 'Dodaj ofertę' },
+      { id: '4', label: 'Wyszukaj oferty' }
+    ]);
+
+    this.offersService.getAllTrips()
+      .subscribe(response => this.allOffers = response);
+
+    this.formCreateTrip = this.formBuilder.group({
+      duration: 1,
+      startingDate: '2020-01-01'
     });
   }
 
-  isOptionActive(id) {
-    return this.selectedMenuOption.id == id;
-  }
+  createNewTrip() {
+    const buildedTrip: ITrip = this.formCreateTrip.value;
 
-  clickedMenuItem(option) {
-    this.selectedMenuOption = option;
+    this.offersService.createNewTrip(buildedTrip)
+      .subscribe(response => console.log(response));
   }
-
 }
