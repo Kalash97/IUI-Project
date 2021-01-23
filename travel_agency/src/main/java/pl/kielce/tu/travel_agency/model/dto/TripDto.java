@@ -18,6 +18,8 @@ public class TripDto {
 
     private int duration;
 
+    private String name;
+
     private List<TicketDto> tickets;
 
     private List<HotelDto> hotels;
@@ -26,5 +28,6 @@ public class TripDto {
         this.id = trip.getId();
         this.startingDate = trip.getStartingDate();
         this.duration = trip.getDuration();
+        this.name = trip.getName();
     }
 }

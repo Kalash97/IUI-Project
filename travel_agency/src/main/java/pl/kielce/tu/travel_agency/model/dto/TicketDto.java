@@ -12,5 +12,6 @@ public class TicketDto {
 
     private String type;
 
+    private String tripName;
 
 }

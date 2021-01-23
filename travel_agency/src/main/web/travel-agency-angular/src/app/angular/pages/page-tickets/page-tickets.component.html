@@ -7,7 +7,54 @@
   </div>
 
   <div class="content">
-    Bilety
+    <div *ngIf="isMenuOptionActive(1)">
+      <h2>Moje bilety:</h2>
+      <table>
+        <tr>
+          <th>Nazwa wycieczki</th>
+          <th>Typ</th>
+          <th>Cena</th>
+          <th>Status</th>
+        </tr>
+        <tr *ngFor="let ticket of myTickets">
+          <td>{{ticket.tripName}}</td>
+          <td>{{ticket.type}}</td>
+          <td>{{ticket.price}}</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div *ngIf="isMenuOptionActive(2)">
+      <h2>Wyszukaj bilety użytkownika:</h2>
+      <form [formGroup]="formSearchByUser" (ngSubmit)="findTicketsByUser()">
+        <label>
+          <input type="text" formControlName="firstname" />Imie<br />
+        </label>
+        <label>
+          <input type="text" formControlName="lastname" />Nazwisko<br />
+        </label>
+        <button type="submit">Zatwierdź</button>
+      </form>
+
+      <div>
+        <table>
+          <tr>
+            <th>Nazwa wycieczki</th>
+            <th>Typ</th>
+            <th>Cena</th>
+            <th>Status</th>
+          </tr>
+          <tr *ngFor="let ticket of searchedTickets">
+            <td>{{ticket.tripName}}</td>
+            <td>{{ticket.type}}</td>
+            <td>{{ticket.price}}</td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
   </div>
 
 </page-body>
