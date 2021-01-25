@@ -18,7 +18,7 @@ public class TripService extends AbstractEntityService<Trip> {
 
 
     @Override
-    public JpaRepository getEntityRepository() {
+    public JpaRepository<Trip, Long> getEntityRepository() {
         return repo;
     }
 }

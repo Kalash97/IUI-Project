@@ -13,7 +13,7 @@ public class HotelService extends AbstractEntityService<Hotel> {
     private HotelRepo repo;
 
     @Override
-    public JpaRepository getEntityRepository() {
+    public JpaRepository<Hotel, Long> getEntityRepository() {
         return repo;
     }
 }

@@ -13,7 +13,7 @@ public class TicketService extends AbstractEntityService<Ticket> {
     private TicketRepo repo;
 
     @Override
-    public JpaRepository getEntityRepository() {
+    public JpaRepository<Ticket, Long> getEntityRepository() {
         return repo;
     }
 }

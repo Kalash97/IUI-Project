@@ -1,14 +1,16 @@
 package pl.kielce.tu.travel_agency.model.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class PersonDto {
-    private long id;
-
+@AllArgsConstructor
+public class RegistrationDto {
     private String email;
+
+    private String password;
 
     private String firstname;
 

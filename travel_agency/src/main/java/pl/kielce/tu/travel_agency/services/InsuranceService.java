@@ -13,7 +13,7 @@ public class InsuranceService extends AbstractEntityService<Insurance> {
     private InsuranceRepo repo;
 
     @Override
-    public JpaRepository getEntityRepository() {
+    public JpaRepository<Insurance, Long> getEntityRepository() {
         return repo;
     }
 }

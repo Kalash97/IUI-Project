@@ -13,7 +13,7 @@ public class CountryService extends AbstractEntityService<Country> {
     private CountryRepo repo;
 
     @Override
-    public JpaRepository getEntityRepository() {
+    public JpaRepository<Country, Long> getEntityRepository() {
         return repo;
     }
 }

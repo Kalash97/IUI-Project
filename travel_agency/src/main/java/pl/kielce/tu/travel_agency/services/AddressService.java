@@ -13,7 +13,7 @@ public class AddressService extends AbstractEntityService<Address> {
     private AddressRepo repo;
 
     @Override
-    public JpaRepository getEntityRepository() {
+    public JpaRepository<Address, Long> getEntityRepository() {
         return repo;
     }
 }

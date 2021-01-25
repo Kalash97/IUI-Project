@@ -6,11 +6,11 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractEntityService<T> {
+public abstract class AbstractEntityService<T extends Serializable> {
 
-    public abstract JpaRepository getEntityRepository();
+    public abstract JpaRepository<T, Long> getEntityRepository();
 
-    public void create(Serializable entity) {
+    public void create(T entity) {
         getEntityRepository().save(entity);
     }
 
@@ -26,11 +26,11 @@ public abstract class AbstractEntityService<T> {
         return getEntityRepository().findAll();
     }
 
-    public void update(Serializable entity) {
+    public void update(T entity) {
         create(entity);
     }
 
-    public void delete(Serializable entity) {
+    public void delete(T entity) {
         getEntityRepository().delete(entity);
     }
 }

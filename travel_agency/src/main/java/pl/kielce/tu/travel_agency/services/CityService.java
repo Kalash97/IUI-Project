@@ -13,7 +13,7 @@ public class CityService extends AbstractEntityService<City> {
     private CityRepo repo;
 
     @Override
-    public JpaRepository getEntityRepository() {
+    public JpaRepository<City, Long> getEntityRepository() {
         return repo;
     }
 }
