@@ -11,7 +11,9 @@ import pl.kielce.tu.travel_agency.model.entities.Hotel;
 import pl.kielce.tu.travel_agency.model.repositories.AddressRepo;
 import pl.kielce.tu.travel_agency.model.repositories.HotelRepo;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class HotelService extends AbstractEntityService<Hotel> {
@@ -66,6 +68,22 @@ public class HotelService extends AbstractEntityService<Hotel> {
         }
 
         hotelRepo.deleteById(id);
+    }
+
+    public HotelDto getHotelById(Long id) {
+        if(!hotelRepo.existsById(id)) {
+            throw new ResourceNotFoundException("Hotel with given ID not found.");
+        }
+
+        return new HotelDto(hotelRepo.getOne(id));
+    }
+
+    public List<HotelDto> getAllHotels() {
+        return hotelRepo
+                .findAll()
+                .stream()
+                .map(HotelDto::new)
+                .collect(Collectors.toList());
     }
 
     private void writeAddress(HotelDto hotelDto, Hotel hotel) throws Exception {

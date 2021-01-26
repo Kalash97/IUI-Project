@@ -2,6 +2,8 @@ package pl.kielce.tu.travel_agency.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.kielce.tu.travel_agency.exception.RegistrationException;
 import pl.kielce.tu.travel_agency.model.dto.PersonDto;
@@ -19,9 +21,13 @@ public class PersonService extends AbstractEntityService<Person> {
 
     private final PersonRepo repo;
 
+    private final PasswordEncoder encoder;
+
     @Autowired
-    public PersonService(PersonRepo repo) {
+    public PersonService(PersonRepo repo,
+                         BCryptPasswordEncoder encoder) {
         this.repo = repo;
+        this.encoder = encoder;
     }
 
     public void register(RegistrationDto personDto) throws Exception{
@@ -34,7 +40,7 @@ public class PersonService extends AbstractEntityService<Person> {
         person.setFirstname(personDto.getFirstname());
         person.setLastname(personDto.getLastname());
         person.setEmail(personDto.getEmail());
-        person.setPassword(personDto.getPassword());
+        person.setPassword(encoder.encode(personDto.getPassword()));
         repo.save(person);
     }
 
