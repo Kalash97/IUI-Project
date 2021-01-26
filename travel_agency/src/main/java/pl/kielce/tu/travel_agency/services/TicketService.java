@@ -86,4 +86,11 @@ public class TicketService extends AbstractEntityService<Ticket> {
                 .stream().map(TicketDto::new)
                 .collect(Collectors.toList());
     }
+
+    public List<TicketDto> getTicketsOfUserId(Long id) {
+        return ticketRepo.findByPersonId(id)
+                .stream()
+                .map(TicketDto::new)
+                .collect(Collectors.toList());
+    }
 }

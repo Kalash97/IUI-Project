@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.kielce.tu.travel_agency.model.dto.TicketDto;
+import pl.kielce.tu.travel_agency.security.SecurityUtils;
 import pl.kielce.tu.travel_agency.services.TicketService;
 
 import java.util.List;
@@ -22,9 +22,12 @@ public class TicketController {
 
     private final TicketService ticketService;
 
+    private final SecurityUtils utils;
+
     @Autowired
-    public TicketController(TicketService ticketService) {
+    public TicketController(TicketService ticketService, SecurityUtils utils) {
         this.ticketService = ticketService;
+        this.utils = utils;
     }
 
     @GetMapping("/all-tickets")
@@ -32,14 +35,14 @@ public class TicketController {
         return ResponseEntity.ok(ticketService.getAllTickets());
     }
 
-    @GetMapping("/of-user")
-    public ResponseEntity<List<TicketDto>> getTiketsOfUser(@RequestParam String firstname, @RequestParam String lastname) {
-        return ResponseEntity.ok().build();
+    @GetMapping("/of-user/{id}")
+    public ResponseEntity<List<TicketDto>> getTicketsOfUser(@PathVariable Long id) {
+        return ResponseEntity.ok(ticketService.getTicketsOfUserId(id));
     }
 
     @GetMapping("/my-tickets")
-    public ResponseEntity<List<TicketDto>> getMyTickets() {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<List<TicketDto>> getMyTickets() throws Exception {
+        return ResponseEntity.ok(ticketService.getTicketsOfUserId(utils.getCurrentPerson().getId()));
     }
 
     @GetMapping("/id/{id}")

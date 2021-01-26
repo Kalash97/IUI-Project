@@ -17,6 +17,8 @@ public class TicketDto {
 
     private PersonDto person;
 
+    private String tripName;
+
     public TicketDto(Ticket ticket) {
         this.id = ticket.getId();
         this.price = ticket.getPrice();

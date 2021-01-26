@@ -92,7 +92,19 @@ public class WebApplicationConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/mvc/country/add",
                         "/mvc/country/edit",
-                        "/mvc/country/delete/**"
+                        "/mvc/country/delete/**",
+                        "/mvc/city/add",
+                        "/mvc/city/edit",
+                        "/mvc/city/delete/**",
+                        "/mvc/hotel/add",
+                        "/mvc/hotel/edit",
+                        "/mvc/hotel/delete/**",
+                        "/mvc/ticket/add",
+                        "/mvc/ticket/edit",
+                        "/mvc/ticket/delete/**",
+                        "/mvc/trip/add",
+                        "/mvc/trip/edit",
+                        "/mvc/trip/delete/**"
                 )
                 .hasAuthority("EMPLOYEE")
                 .and()
