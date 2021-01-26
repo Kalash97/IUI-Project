@@ -1,5 +1,6 @@
 package pl.kielce.tu.travel_agency.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -57,6 +58,11 @@ public class WebApplicationConfig extends WebSecurityConfigurerAdapter {
         return authProvider;
     }
 
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -76,6 +82,14 @@ public class WebApplicationConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/user/authenticate", "/user/register", "/*", "/index.html")
                 .permitAll()
+                .and()
+                .authorizeRequests()
+                .antMatchers(
+                        "/mvc/country/add",
+                        "/mvc/country/edit",
+                        "/mvc/country/delete/**"
+                )
+                .hasAuthority("EMPLOYEE")
                 .and()
                 .authorizeRequests()
                 .anyRequest()

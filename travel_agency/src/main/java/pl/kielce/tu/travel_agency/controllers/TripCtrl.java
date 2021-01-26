@@ -36,6 +36,7 @@ public class TripCtrl {
 
     @PostMapping("/add")
     public ResponseEntity<TripDto> addTrip(@RequestBody TripDto trip) {
+
         return ResponseEntity.ok().build();
     }
 

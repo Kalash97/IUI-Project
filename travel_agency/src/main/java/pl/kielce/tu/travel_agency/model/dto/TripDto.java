@@ -26,5 +26,17 @@ public class TripDto {
         this.id = trip.getId();
         this.startingDate = trip.getStartingDate();
         this.duration = trip.getDuration();
+        this.tickets = trip.getTickets()!=null?
+                trip.getTickets()
+                        .stream()
+                        .peek(tripInstance -> tripInstance.setTrip(null))
+                        .map(TicketDto::new)
+                        .collect(Collectors.toList()):null;
+        this.hotels = trip.getHotels()!=null?
+                trip.getHotels()
+                        .stream()
+                        .peek(hotel -> hotel.setTrips(null))
+                        .map(HotelDto::new)
+                        .collect(Collectors.toList()):null;
     }
 }

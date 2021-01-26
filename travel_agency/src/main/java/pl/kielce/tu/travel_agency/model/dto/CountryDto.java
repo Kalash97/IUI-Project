@@ -23,8 +23,8 @@ public class CountryDto {
                 country
                         .getCities()
                         .stream()
+                        .peek(city -> city.setCountry(null))
                         .map(CityDto::new)
-                        .peek(cityDto -> cityDto.setCountry(null))
                         .collect(Collectors.toList()):null;
     }
 }

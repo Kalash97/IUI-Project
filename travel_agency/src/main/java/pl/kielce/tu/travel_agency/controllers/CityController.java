@@ -1,14 +1,23 @@
 package pl.kielce.tu.travel_agency.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.kielce.tu.travel_agency.model.dto.CityDto;
+import pl.kielce.tu.travel_agency.services.CityService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/mvc/city")
 public class CityController {
+
+    private final CityService cityService;
+
+    @Autowired
+    public CityController(CityService cityService) {
+        this.cityService = cityService;
+    }
 
     @GetMapping("/all-cities")
     public ResponseEntity<List<CityDto>> getAllCitys() {

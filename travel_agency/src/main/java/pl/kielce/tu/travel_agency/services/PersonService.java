@@ -7,13 +7,22 @@ import pl.kielce.tu.travel_agency.exception.RegistrationException;
 import pl.kielce.tu.travel_agency.model.dto.PersonDto;
 import pl.kielce.tu.travel_agency.model.dto.RegistrationDto;
 import pl.kielce.tu.travel_agency.model.entities.Person;
+import pl.kielce.tu.travel_agency.model.entities.Role;
 import pl.kielce.tu.travel_agency.model.repositories.PersonRepo;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PersonService extends AbstractEntityService<Person> {
 
+
+    private final PersonRepo repo;
+
     @Autowired
-    private PersonRepo repo;
+    public PersonService(PersonRepo repo) {
+        this.repo = repo;
+    }
 
     public void register(RegistrationDto personDto) throws Exception{
         if(repo.findByEmail(personDto.getEmail()).isPresent()) {
@@ -32,5 +41,21 @@ public class PersonService extends AbstractEntityService<Person> {
     @Override
     public JpaRepository<Person, Long> getEntityRepository() {
         return repo;
+    }
+
+    public List<PersonDto> getAllClients() {
+        return getPeopleByRole(Role.CUSTOMER);
+    }
+
+    public List<PersonDto> getAllEmployees() {
+        return getPeopleByRole(Role.EMPLOYEE);
+    }
+
+    private List<PersonDto> getPeopleByRole(Role role) {
+        return repo
+                .findByRole(role)
+                .stream()
+                .map(PersonDto::new)
+                .collect(Collectors.toList());
     }
 }
