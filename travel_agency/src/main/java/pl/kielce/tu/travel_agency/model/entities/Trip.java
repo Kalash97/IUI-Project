@@ -22,6 +22,8 @@ public class Trip implements Serializable {
 
     private int duration;
 
+    private String name;
+
     @OneToMany(mappedBy = "trip")
     private List<Ticket> tickets;
 

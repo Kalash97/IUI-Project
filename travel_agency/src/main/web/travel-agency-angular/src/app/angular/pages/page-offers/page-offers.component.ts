@@ -12,10 +12,11 @@ import { PageComponent } from '../page-component';
 export class PageOffersComponent extends PageComponent implements OnInit {
 
   allOffers: ITrip[];
-
-  selectedTrip: ITrip = null;
+  availableOffers: ITrip[];
+  searchedOffers: ITrip[];
 
   formCreateTrip;
+  formFindTrips;
 
   constructor(private offersService: OffersService, private formBuilder: FormBuilder) {
     super();
@@ -29,13 +30,23 @@ export class PageOffersComponent extends PageComponent implements OnInit {
       { id: '4', label: 'Wyszukaj oferty' }
     ]);
 
+    this.formCreateTrip = this.formBuilder.group({
+      duration: 1,
+      startingDate: '2020-01-01',
+      name: 'name'
+    });
+
+    this.formFindTrips = this.formBuilder.group({
+      duration: 1,
+      startingDate: '2020-01-01',
+      name: 'name'
+    });
+
     this.offersService.getAllTrips()
       .subscribe(response => this.allOffers = response);
 
-    this.formCreateTrip = this.formBuilder.group({
-      duration: 1,
-      startingDate: '2020-01-01'
-    });
+    this.offersService.getAvailableTrips()
+      .subscribe(response => this.availableOffers = response);
   }
 
   createNewTrip() {
@@ -43,5 +54,12 @@ export class PageOffersComponent extends PageComponent implements OnInit {
 
     this.offersService.createNewTrip(buildedTrip)
       .subscribe(response => console.log(response));
+  }
+
+  findTrips() {
+    const buildedTrip: ITrip = this.formFindTrips.value;
+
+    this.offersService.findTrips(buildedTrip)
+      .subscribe(response => this.searchedOffers = response);
   }
 }

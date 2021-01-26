@@ -18,6 +18,8 @@ public class TripDto {
 
     private int duration;
 
+    private String name;
+
     private List<TicketDto> tickets;
 
     private List<HotelDto> hotels;
@@ -38,5 +40,6 @@ public class TripDto {
                         .peek(hotel -> hotel.setTrips(null))
                         .map(HotelDto::new)
                         .collect(Collectors.toList()):null;
+        this.name = trip.getName();
     }
 }

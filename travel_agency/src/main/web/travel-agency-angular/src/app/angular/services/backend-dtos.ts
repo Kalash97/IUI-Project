@@ -1,9 +1,23 @@
 export interface ITrip {
     startingDate: string,
-    duration: number
+    duration: number,
+    name: string
 };
 
-// export class ITripTemplate implements ITrip {
-//     duration: 1;
-//     startingDate: '2020-01-01';
-// };
+export interface ITicket {
+    price: string,
+    type: number,
+    tripName: string
+};
+
+export interface IUser {
+    firstname: string,
+    lastname: string
+};
+
+export interface IUserCredentials {
+    firstname: string,
+    lastname: string,
+    login: string,
+    password: string
+};
