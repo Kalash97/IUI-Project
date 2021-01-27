@@ -1,5 +1,6 @@
 package pl.kielce.tu.travel_agency.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,9 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.kielce.tu.travel_agency.model.dto.TicketDto;
+import pl.kielce.tu.travel_agency.security.SecurityUtils;
+import pl.kielce.tu.travel_agency.services.TicketService;
 
 import java.util.List;
 
@@ -18,38 +20,49 @@ import java.util.List;
 @RequestMapping("/mvc/ticket")
 public class TicketController {
 
-    @GetMapping("/all-tickets")
-    public ResponseEntity<List<TicketDto>> getAllTickets() {
-        return ResponseEntity.ok().build();
+    private final TicketService ticketService;
+
+    private final SecurityUtils utils;
+
+    @Autowired
+    public TicketController(TicketService ticketService, SecurityUtils utils) {
+        this.ticketService = ticketService;
+        this.utils = utils;
     }
 
-    @GetMapping("/of-user")
-    public ResponseEntity<List<TicketDto>> getTiketsOfUser(@RequestParam String firstname, @RequestParam String lastname) {
-        return ResponseEntity.ok().build();
+    @GetMapping("/all-tickets")
+    public ResponseEntity<List<TicketDto>> getAllTickets() throws Exception{
+        return ResponseEntity.ok(ticketService.getAllTickets());
+    }
+
+    @GetMapping("/of-user/{id}")
+    public ResponseEntity<List<TicketDto>> getTicketsOfUser(@PathVariable Long id) {
+        return ResponseEntity.ok(ticketService.getTicketsOfUserId(id));
     }
 
     @GetMapping("/my-tickets")
-    public ResponseEntity<List<TicketDto>> getMyTickets() {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<List<TicketDto>> getMyTickets() throws Exception {
+        return ResponseEntity.ok(ticketService.getTicketsOfUserId(utils.getCurrentPerson().getId()));
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<TicketDto> getTicketById(@PathVariable String id) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<TicketDto> getTicketById(@PathVariable Long id) throws Exception {
+        return ResponseEntity.ok(ticketService.getTicketById(id));
     }
 
     @PostMapping("/add")
-    public ResponseEntity<TicketDto> addTicket(@RequestBody TicketDto ticket) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<TicketDto> addTicket(@RequestBody TicketDto ticket) throws Exception {
+        return ResponseEntity.ok(ticketService.addTicket(ticket));
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<TicketDto> editTicket(@RequestBody TicketDto ticket) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<TicketDto> editTicket(@RequestBody TicketDto ticket) throws Exception {
+        return ResponseEntity.ok(ticketService.editTicket(ticket));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteTicket(@PathVariable String id) {
+    public ResponseEntity<?> deleteTicket(@PathVariable Long id) throws Exception {
+        ticketService.deleteTicket(id);
         return ResponseEntity.ok().build();
     }
 }

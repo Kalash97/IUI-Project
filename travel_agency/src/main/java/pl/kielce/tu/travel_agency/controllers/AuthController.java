@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.kielce.tu.travel_agency.model.dto.CredentialsDto;
 import pl.kielce.tu.travel_agency.model.dto.JWTToken;
+import pl.kielce.tu.travel_agency.model.dto.PersonDto;
+import pl.kielce.tu.travel_agency.model.dto.RegistrationDto;
 import pl.kielce.tu.travel_agency.security.SecurityUtils;
 import pl.kielce.tu.travel_agency.security.jwt.JWTTokenFilter;
 import pl.kielce.tu.travel_agency.security.jwt.JWTTokenProvider;
@@ -45,7 +47,7 @@ public class AuthController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<JWTToken> authenticate(@RequestBody CredentialsDto credentialsDto) {
+    public ResponseEntity<JWTToken> authenticate(@RequestBody CredentialsDto credentialsDto) throws Exception {
         UsernamePasswordAuthenticationToken authToken =
                 new UsernamePasswordAuthenticationToken(credentialsDto.getEmail(), credentialsDto.getPassword());
         Authentication authentication = authenticationManager.authenticate(authToken);
@@ -57,10 +59,15 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request) {
+    public ResponseEntity<?> logout(HttpServletRequest request) throws Exception{
 
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegistrationDto registrationDto) throws Exception{
+        personService.register(registrationDto);
 
+        return ResponseEntity.ok().build();
+    }
 }

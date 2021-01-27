@@ -12,8 +12,12 @@ import java.util.List;
 @RequestMapping("/mvc/trip")
 public class TripCtrl {
 
+    private final TripService tripService;
+
     @Autowired
-    private TripService tripService;
+    public TripCtrl(TripService tripService) {
+        this.tripService = tripService;
+    }
 
 //    @GetMapping("mvc/trip/all-trips")
 //    public ResponseEntity<List<TripDto>> getAllTrips() {
@@ -26,26 +30,27 @@ public class TripCtrl {
 
     @GetMapping("/all-trips")
     public ResponseEntity<List<TripDto>> getAllTrips() {
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(tripService.getAllTrips());
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<TripDto> getTripById(@PathVariable String id) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<TripDto> getTripById(@PathVariable Long id) {
+        return ResponseEntity.ok(tripService.getTripById(id));
     }
 
     @PostMapping("/add")
-    public ResponseEntity<TripDto> addTrip(@RequestBody TripDto trip) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<TripDto> addTrip(@RequestBody TripDto trip) throws Exception {
+        return ResponseEntity.ok(tripService.addTrip(trip));
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<TripDto> editTrip(@RequestBody TripDto trip) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<TripDto> editTrip(@RequestBody TripDto trip) throws Exception {
+        return ResponseEntity.ok(tripService.editTrip(trip));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteTrip(@PathVariable String id) {
+    public ResponseEntity<?> deleteTrip(@PathVariable Long id) {
+        tripService.deleteTrip(id);
         return ResponseEntity.ok().build();
     }
 }

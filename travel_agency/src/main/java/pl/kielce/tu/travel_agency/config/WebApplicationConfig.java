@@ -1,5 +1,6 @@
 package pl.kielce.tu.travel_agency.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -50,11 +51,21 @@ public class WebApplicationConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public BCryptPasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder(11);
+    }
+
+    @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(new BCryptPasswordEncoder(11));
+        authProvider.setPasswordEncoder(getPasswordEncoder());
         return authProvider;
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 
     @Override
@@ -76,6 +87,26 @@ public class WebApplicationConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/user/authenticate", "/user/register", "/*", "/index.html")
                 .permitAll()
+                .and()
+                .authorizeRequests()
+                .antMatchers(
+                        "/mvc/country/add",
+                        "/mvc/country/edit",
+                        "/mvc/country/delete/**",
+                        "/mvc/city/add",
+                        "/mvc/city/edit",
+                        "/mvc/city/delete/**",
+                        "/mvc/hotel/add",
+                        "/mvc/hotel/edit",
+                        "/mvc/hotel/delete/**",
+                        "/mvc/ticket/add",
+                        "/mvc/ticket/edit",
+                        "/mvc/ticket/delete/**",
+                        "/mvc/trip/add",
+                        "/mvc/trip/edit",
+                        "/mvc/trip/delete/**"
+                )
+                .hasAuthority("EMPLOYEE")
                 .and()
                 .authorizeRequests()
                 .anyRequest()

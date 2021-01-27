@@ -13,12 +13,12 @@ public class AddressDto {
 
     private int number;
 
-    private CityDto city;
+    private long cityId;
 
     public AddressDto(Address address) {
         this.id = address.getId();
         this.street = address.getStreet();
         this.number = address.getNumber();
-        this.city = new CityDto(address.getCity());
+        this.cityId = address.getCity().getId();
     }
 }

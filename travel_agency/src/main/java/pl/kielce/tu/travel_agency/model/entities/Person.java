@@ -5,6 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,10 +22,13 @@ public class Person implements Serializable {
     private long id;
 
     @Column(unique = true)
+    @Email
     private String email;
 
+    @Size(min=5, max = 64)
     private String password;
 
+    @Size(min=3, max=50)
     private String firstname;
 
     private String lastname;

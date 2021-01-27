@@ -15,19 +15,19 @@ public class CityDto {
 
     private String name;
 
-    private CountryDto country;
+    private long countryId;
     
     private List<AddressDto> addresses;
 
     public CityDto(City city) {
         this.id = city.getId();
         this.name = city.getName();
-        this.country = new CountryDto(city.getCountry());
-        this.addresses = city
+        this.countryId = city.getCountry().getId();
+        this.addresses = city.getAddresses()!=null?city
                 .getAddresses()
                 .stream()
+                .peek(address -> address.setCity(null))
                 .map(AddressDto::new)
-                .peek(addressDto -> addressDto.setCity(null))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()):null;
     }
 }
