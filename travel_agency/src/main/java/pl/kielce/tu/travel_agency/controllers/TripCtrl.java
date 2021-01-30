@@ -53,4 +53,9 @@ public class TripCtrl {
         tripService.deleteTrip(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/available-trips")
+    public ResponseEntity<?> getAvailableTrips() {
+        return ResponseEntity.ok().build();
+    }
 }

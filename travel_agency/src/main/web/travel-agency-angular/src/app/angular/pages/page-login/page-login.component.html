@@ -3,15 +3,20 @@
     &nbsp;
   </div>
 
-  <div class="content">
+  <div class="content login-component">
     <h2>Zaloguj się</h2>
-    <form [formGroup]="formLogin">
+    <form [formGroup]="formLogin" (ngSubmit)="tryLogin()">
       <label>
-        <input type="email" formControlName="email"/>
+        <input type="email" placeholder="E-mail" formControlName="email"/> <br/>
       </label>
       <label>
-        <input type="password" formControlName="password"/>
+        <input type="password" placeholder="Password" formControlName="password"/><br/>
       </label>
+      <label>
+        <input type="checkbox" formControlName="rememberMe"/>
+        Nie wylogowuj mnie <br/>
+      </label>
+      <button type="submit">Zaloguj</button>
     </form>
   </div>
 

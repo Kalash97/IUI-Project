@@ -11,13 +11,25 @@ export interface ITicket {
 };
 
 export interface IUser {
+    id: number,
     firstname: string,
-    lastname: string
+    lastname: string,
+    email: string,
+    role: string
 };
 
 export interface IUserCredentials {
     firstname: string,
     lastname: string,
     login: string,
-    password: string
+    email: string,
+    password: string,
+    rememberMe: boolean
 };
+
+export interface IUserToken {
+  id_token: string,
+  person: IUser
+}
+
+

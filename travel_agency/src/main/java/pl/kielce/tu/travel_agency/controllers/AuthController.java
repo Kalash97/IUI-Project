@@ -52,10 +52,11 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(credentialsDto.getEmail(), credentialsDto.getPassword());
         Authentication authentication = authenticationManager.authenticate(authToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = tokenProvider.createToken(authentication, false);
+        String jwt = tokenProvider.createToken(authentication, credentialsDto.getRememberMe());
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JWTTokenFilter.AUTHORIZATION_HEADER, "Bearer "+jwt);
-        return new ResponseEntity<>(new JWTToken(jwt), httpHeaders, HttpStatus.OK);
+        PersonDto person = new PersonDto(utils.getCurrentPerson());
+        return new ResponseEntity<>(new JWTToken(jwt, person), httpHeaders, HttpStatus.OK);
     }
 
     @PostMapping("/logout")

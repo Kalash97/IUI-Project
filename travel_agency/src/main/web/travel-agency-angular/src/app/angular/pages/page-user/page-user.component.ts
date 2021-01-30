@@ -39,8 +39,8 @@ export class PageUserComponent extends PageComponent implements OnInit {
       lastname: 'last name'
     });
 
-    this.userService.getInfoAboutMe()
-      .subscribe(response => this.infoAboutMe = response);
+    // this.userService.getInfoAboutMe()
+    //   .subscribe(response => this.infoAboutMe = response);
   }
 
   findUser() {
@@ -62,4 +62,7 @@ export class PageUserComponent extends PageComponent implements OnInit {
       .subscribe(response => console.log(response));
   }
 
+  login(credentials: IUserCredentials) {
+
+  }
 }

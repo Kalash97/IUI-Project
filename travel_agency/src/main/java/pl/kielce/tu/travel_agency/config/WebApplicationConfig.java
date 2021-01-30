@@ -89,7 +89,17 @@ public class WebApplicationConfig extends WebSecurityConfigurerAdapter {
                         "/user/authenticate",
                         "/user/register",
                         "/*",
-                        "/index.html")
+                        "/index.html",
+                        "/mvc/city/all-cities",
+                        "/mvc/city/id/**",
+                        "/mvc/country/all-countries",
+                        "/mvc/country/id/**",
+                        "/mvc/hotel/all-hotels",
+                        "/mvc/hotel/id/**",
+                        "/mvc/trip/all-trips",
+                        "/mvc/trip/id/**",
+                        "/mvc/trip/available-trips"
+                )
                 .permitAll()
                 .and()
                 .authorizeRequests()
