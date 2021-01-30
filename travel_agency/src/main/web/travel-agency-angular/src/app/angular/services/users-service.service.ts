@@ -8,6 +8,8 @@ import { IUser } from './backend-dtos';
 })
 export class UsersService {
 
+  currentUser: IUser;
+
   endpointRoot = '/mvc/user';
 
   constructor(private http: HttpClient) { }
@@ -34,4 +36,10 @@ export class UsersService {
   getInfoAboutMe() {
     return this.http.get<string[]>(this.endpointRoot + '/info-about-me');
   }
+
+  getLoggedUser() {
+    return this.currentUser;
+  }
+
+
 }
