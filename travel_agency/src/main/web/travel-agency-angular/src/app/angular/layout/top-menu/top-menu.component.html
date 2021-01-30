@@ -7,5 +7,5 @@
   <div class="btn" routerLink="user" routerLinkActive="btn-active" routerLinkActiveOptions="{ exact: true }">Użytkownik</div>
   <div class="btn" routerLink="contact" routerLinkActive="btn-active" routerLinkActiveOptions="{ exact: true }">Kontakt</div>
   <div class="btn" *ngIf="getCurrentUser() == null" routerLink="login" routerLinkActive="btn-active" routerLinkActiveOptions="{ exact: true }">Zaloguj się</div>
-  <div class="btn" *ngIf="getCurrentUser() != null" (click)="logout()">Wyloguj się</div>
+  <div class="btn" *ngIf="getCurrentUser() != null" routerLink="logout" routerLinkActive="btn-active">Wyloguj się</div>
 </div>

@@ -48,9 +48,6 @@ export class UsersService {
   }
 
   login(credentials: IUserCredentials) {
-    return this.http.post<IUserToken>('user/authenticate', credentials)
-      .pipe(
-        tap(val => {this.currentUser = val.person})
-      );
+    return this.http.post<IUserToken>('user/authenticate', credentials);
   }
 }

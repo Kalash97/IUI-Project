@@ -23,8 +23,7 @@ export class TopMenuComponent implements OnInit {
   }
 
   logout() {
-    this.userService.currentUser = null;
-    localStorage.removeItem("id_token");
+
   }
 
 }

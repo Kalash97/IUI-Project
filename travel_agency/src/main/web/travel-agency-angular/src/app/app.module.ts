@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { TopMenuComponent } from './angular/layout/top-menu/top-menu.component';
 import { PageBodyComponent } from './angular/layout/page-body/page-body.component';
 import {AppHttpInterceptor} from "./angular/services/http.interceptor";
+import { PageLogoutComponent } from './angular/pages/page-logout/page-logout.component';
 
 @NgModule({
   declarations: [

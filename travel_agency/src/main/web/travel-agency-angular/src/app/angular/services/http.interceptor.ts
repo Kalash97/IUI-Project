@@ -21,11 +21,12 @@ export class AppHttpInterceptor implements HttpInterceptor {
        tap(evt => {}),
        catchError((err, caught) => {
          if(err instanceof HttpErrorResponse) {
-           if(err.status === 401) {
-             localStorage.removeItem('id_token');
-             this.userService.currentUser = null;
-             this.router.navigate(['login']);
+           if(err.status !== 401) {
+              return caught;
            }
+           localStorage.removeItem('id_token');
+           this.userService.currentUser = null;
+           this.router.navigate(['login']);
          }
 
          return caught;

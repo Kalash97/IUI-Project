@@ -7,6 +7,7 @@ import { PageOffersComponent } from './angular/pages/page-offers/page-offers.com
 import { PageTicketsComponent } from './angular/pages/page-tickets/page-tickets.component';
 import { PageUserComponent } from './angular/pages/page-user/page-user.component';
 import { PageLoginComponent } from "./angular/pages/page-login/page-login.component";
+import {PageLogoutComponent} from "./angular/pages/page-logout/page-logout.component";
 
 const routes: Routes = [
     { path: '', component: PageOffersComponent },
@@ -15,9 +16,10 @@ const routes: Routes = [
     { path: 'user', component: PageUserComponent },
     { path: 'contact', component: PageContactComponent },
     { path: 'login', component: PageLoginComponent },
+    { path: 'logout', component: PageLogoutComponent},
+
+
     { path: '**', component: PageError404Component }
-
-
 ];
 
 @NgModule({
@@ -32,5 +34,6 @@ export const PagesOfSite = [
     PageOffersComponent,
     PageTicketsComponent,
     PageUserComponent,
-    PageLoginComponent
+    PageLoginComponent,
+    PageLogoutComponent
 ];
