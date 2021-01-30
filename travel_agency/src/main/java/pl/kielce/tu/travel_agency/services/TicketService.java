@@ -93,4 +93,12 @@ public class TicketService extends AbstractEntityService<Ticket> {
                 .map(TicketDto::new)
                 .collect(Collectors.toList());
     }
+
+    public void cancelTicket(Long ticketId) {
+        //TODO Implement
+    }
+
+    public void reserveTicket(Long tripId) {
+        //TODO Implement
+    }
 }

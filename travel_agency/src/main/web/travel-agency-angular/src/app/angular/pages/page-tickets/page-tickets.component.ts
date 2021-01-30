@@ -42,4 +42,8 @@ export class PageTicketsComponent extends PageComponent implements OnInit {
       .subscribe(response => this.searchedTickets = response);
   }
 
+  cancelTicket(ticket) {
+    this.ticketsService.cancelTicket(ticket)
+      .subscribe(response => console.log(response));
+  }
 }

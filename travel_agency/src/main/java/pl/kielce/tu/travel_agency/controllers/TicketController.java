@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.kielce.tu.travel_agency.model.dto.TicketDto;
 import pl.kielce.tu.travel_agency.security.SecurityUtils;
@@ -33,6 +34,16 @@ public class TicketController {
     @GetMapping("/all-tickets")
     public ResponseEntity<List<TicketDto>> getAllTickets() throws Exception{
         return ResponseEntity.ok(ticketService.getAllTickets());
+    }
+
+    @GetMapping("/cancel-ticket")
+    public void cancelTicket(@RequestParam Long ticketId) throws Exception{
+        ticketService.cancelTicket(ticketId);
+    }
+
+    @GetMapping("/reserve-ticket")
+    public void reserveTicket(@RequestParam Long tripId) throws Exception{
+        ticketService.reserveTicket(tripId);
     }
 
     @GetMapping("/of-user/{id}")
