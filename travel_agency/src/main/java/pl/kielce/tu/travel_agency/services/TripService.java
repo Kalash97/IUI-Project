@@ -11,6 +11,8 @@ import pl.kielce.tu.travel_agency.model.repositories.HotelRepo;
 import pl.kielce.tu.travel_agency.model.repositories.TripRepo;
 import pl.kielce.tu.travel_agency.security.SecurityUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -118,5 +120,13 @@ public class TripService extends AbstractEntityService<Trip> {
                 .filter(tripDto -> !personReservedTrips.contains(tripDto.getId()))
                 .collect(Collectors.toList());
 
+    }
+
+    public List<TripDto> findByCriteria(String date, int duration, String name) throws Exception {
+        return tripRepo
+                .findByCriteria(new SimpleDateFormat("yyyy-MM-dd").parse(date), duration, name)
+                .stream()
+                .map(TripDto::new)
+                .collect(Collectors.toList());
     }
 }

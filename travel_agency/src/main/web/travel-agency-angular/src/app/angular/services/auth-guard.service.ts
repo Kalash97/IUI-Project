@@ -3,7 +3,7 @@ import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {UsersService} from "./users-service.service";
 
-@Injectable()
+
 export class AuthGuardService implements CanActivate {
 
   constructor(private userService: UsersService, private router: Router) {
