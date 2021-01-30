@@ -31,8 +31,8 @@ export class PageTicketsComponent extends PageComponent implements OnInit {
       lastname: 'last name'
     });
 
-    // this.ticketsService.getMyTickets()
-    //   .subscribe(response => this.myTickets = response);
+    this.ticketsService.getMyTickets()
+      .subscribe(response => this.myTickets = response);
   }
 
   findTicketsByUser() {

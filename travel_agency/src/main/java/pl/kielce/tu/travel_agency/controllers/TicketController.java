@@ -37,13 +37,15 @@ public class TicketController {
     }
 
     @GetMapping("/cancel-ticket")
-    public void cancelTicket(@RequestParam Long ticketId) throws Exception{
+    public ResponseEntity<?> cancelTicket(@RequestParam Long ticketId) throws Exception{
         ticketService.cancelTicket(ticketId);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/reserve-ticket")
-    public void reserveTicket(@RequestParam Long tripId) throws Exception{
+    public ResponseEntity<?> reserveTicket(@RequestParam Long tripId) throws Exception{
         ticketService.reserveTicket(tripId);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/of-user/{id}")

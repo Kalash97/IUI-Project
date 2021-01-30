@@ -2,7 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {IUser, IUserCredentials, IUserToken} from './backend-dtos';
-import {tap} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +48,13 @@ export class UsersService {
   }
 
   login(credentials: IUserCredentials) {
+
     return this.http.post<IUserToken>('user/authenticate', credentials);
+    // function authSuccessHandler(response: IUserToken) {
+    //
+    //   localStorage.setItem("id_token", response.id_token);
+    //   return response.id_token;
+    // }
+    // return this.http.post<IUserToken>('user/authenticate', credentials).pipe(map(authSuccessHandler.bind(this)));
   }
 }

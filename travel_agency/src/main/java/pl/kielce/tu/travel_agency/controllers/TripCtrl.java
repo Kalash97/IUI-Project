@@ -55,7 +55,7 @@ public class TripCtrl {
     }
 
     @GetMapping("/available-trips")
-    public ResponseEntity<?> getAvailableTrips() {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> getAvailableTrips() throws Exception{
+        return ResponseEntity.ok(tripService.getAvailableTrips());
     }
 }

@@ -23,7 +23,7 @@ public class TicketDto {
         this.id = ticket.getId();
         this.price = ticket.getPrice();
         this.type = ticket.getType();
-        this.trip = new TripDto(ticket.getTrip());
-        this.person = new PersonDto(ticket.getPerson());
+        this.trip = ticket.getTrip()!=null?new TripDto(ticket.getTrip()):null;
+        this.person = ticket.getPerson()!=null?new PersonDto(ticket.getPerson()):null;
     }
 }
