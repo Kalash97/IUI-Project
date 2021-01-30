@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ITrip } from '../../services/backend-dtos';
 import { OffersService } from '../../services/offers-service.service';
+import { TicketsService } from '../../services/tickets-service.service';
 import { PageComponent } from '../page-component';
 
 @Component({
@@ -18,7 +19,7 @@ export class PageOffersComponent extends PageComponent implements OnInit {
   formCreateTrip;
   formFindTrips;
 
-  constructor(private offersService: OffersService, private formBuilder: FormBuilder) {
+  constructor(private offersService: OffersService, private ticketService: TicketsService, private formBuilder: FormBuilder) {
     super();
   }
 
@@ -61,5 +62,10 @@ export class PageOffersComponent extends PageComponent implements OnInit {
 
     this.offersService.findTrips(buildedTrip)
       .subscribe(response => this.searchedOffers = response);
+  }
+
+  reserveTicket(trip) {
+    this.ticketService.reserveTicket(trip)
+      .subscribe(response => console.log(response))
   }
 }

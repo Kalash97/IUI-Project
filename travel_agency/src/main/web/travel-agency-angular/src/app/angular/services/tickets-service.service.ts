@@ -27,4 +27,11 @@ export class TicketsService {
     return this.http.get<ITicket[]>(this.endpointRoot + '/of-user' + params);
   }
 
+  cancelTicket(ticket) {
+    return this.http.get(this.endpointRoot + '/cancel-ticket?ticketId=' + ticket.id);
+  }
+
+  reserveTicket(trip) {
+    return this.http.get(this.endpointRoot + '/reserve-ticket?tripId=' + trip.id);
+  }
 }

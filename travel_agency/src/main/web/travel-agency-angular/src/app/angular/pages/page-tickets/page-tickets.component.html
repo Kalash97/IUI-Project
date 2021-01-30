@@ -15,12 +15,16 @@
           <th>Typ</th>
           <th>Cena</th>
           <th>Status</th>
+          <th>Akcje</th>
         </tr>
         <tr *ngFor="let ticket of myTickets">
           <td>{{ticket.tripName}}</td>
           <td>{{ticket.type}}</td>
           <td>{{ticket.price}}</td>
           <td></td>
+          <td>
+            <div class="action-btn" (click)="cancelTicket(ticket)">Odwołaj</div>
+          </td>
         </tr>
       </table>
     </div>
