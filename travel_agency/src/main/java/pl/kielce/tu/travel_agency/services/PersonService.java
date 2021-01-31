@@ -35,12 +35,12 @@ public class PersonService extends AbstractEntityService<Person> {
             throw new RegistrationException("Osoba o danym mailu juz istnieje!");
         }
 
-
         Person person = new Person();
         person.setFirstname(personDto.getFirstname());
         person.setLastname(personDto.getLastname());
         person.setEmail(personDto.getEmail());
         person.setPassword(encoder.encode(personDto.getPassword()));
+        person.setRole(Role.CUSTOMER);
         repo.save(person);
     }
 
@@ -60,6 +60,13 @@ public class PersonService extends AbstractEntityService<Person> {
     private List<PersonDto> getPeopleByRole(Role role) {
         return repo
                 .findByRole(role)
+                .stream()
+                .map(PersonDto::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<PersonDto> findByFirstnameAndLastname(String firstname, String lastname) {
+        return repo.findByFirstnameContainingAndLastnameContaining(firstname, lastname)
                 .stream()
                 .map(PersonDto::new)
                 .collect(Collectors.toList());

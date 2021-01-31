@@ -53,6 +53,11 @@ public class TicketController {
         return ResponseEntity.ok(ticketService.getTicketsOfUserId(id));
     }
 
+    @GetMapping("/of-user")
+    public ResponseEntity<List<TicketDto>> findTicketByUserPersonalData(@RequestParam String firstname, @RequestParam String lastname) {
+        return ResponseEntity.ok(ticketService.getTicketsByFirstnameAndLastname(firstname, lastname));
+    }
+
     @GetMapping("/my-tickets")
     public ResponseEntity<List<TicketDto>> getMyTickets() throws Exception {
         return ResponseEntity.ok(ticketService.getTicketsOfUserId(utils.getCurrentPerson().getId()));

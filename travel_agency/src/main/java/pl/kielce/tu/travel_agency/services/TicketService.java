@@ -100,6 +100,16 @@ public class TicketService extends AbstractEntityService<Ticket> {
                 .collect(Collectors.toList());
     }
 
+    public List<TicketDto> getTicketsByFirstnameAndLastname(String firstname, String lastname) {
+        return personRepo
+                .findByFirstnameContainingAndLastnameContaining(firstname, lastname)
+                .stream()
+                .flatMap(person -> person.getTickets().stream())
+                .map(TicketDto::new)
+                .collect(Collectors.toList());
+
+    }
+
     public void cancelTicket(Long ticketId) throws Exception{
         if(!ticketRepo.existsById(ticketId)) {
             throw new ResourceNotFoundException("Couldn't find ticket with given ID");

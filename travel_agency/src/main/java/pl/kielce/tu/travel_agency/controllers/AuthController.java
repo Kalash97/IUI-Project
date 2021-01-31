@@ -24,7 +24,7 @@ import pl.kielce.tu.travel_agency.services.PersonService;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/mvc/user")
 public class AuthController {
 
     private final SecurityUtils utils;

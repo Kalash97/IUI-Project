@@ -23,7 +23,7 @@ export class TicketsService {
   getUserTickets(user): Observable<ITicket[]> {
     let params = '?';
     params += user.firstname ? 'firstname=' + user.firstname + '&' : '';
-    params += user.lastname ? 'lastname=' + user.lastname + '&' : '';
+    params += user.lastname ? 'lastname=' + user.lastname : '';
     return this.http.get<ITicket[]>(this.endpointRoot + '/of-user' + params);
   }
 

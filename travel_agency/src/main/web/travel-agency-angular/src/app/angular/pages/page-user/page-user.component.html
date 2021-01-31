@@ -28,37 +28,18 @@
             <th>Status</th>
           </tr>
           <tr *ngFor="let user of searchedUsers">
-            <td>{{ticket.firstname}}</td>
-            <td>{{ticket.lastname}}</td>
-            <td></td>
+            <td>{{user.firstname}}</td>
+            <td>{{user.lastname}}</td>
+            <td>{{user.role}}</td>
             <td></td>
           </tr>
         </table>
       </div>
     </div>
 
-    <div *ngIf="isMenuOptionActive(2)">
-      <h2>Załóż nowe konto:</h2>
-      <form [formGroup]="formCreateUser" (ngSubmit)="createUser()">
-        <label>
-          <input type="text" formControlName="firstname" />Imie<br />
-        </label>
-        <label>
-          <input type="text" formControlName="lastname" />Nazwisko<br />
-        </label>
-        <label>
-          <input type="text" formControlName="login" />Login<br />
-        </label>
-        <label>
-          <input type="text" formControlName="password" />Hasło<br />
-        </label>
-        <button type="submit">Zatwierdź</button>
-      </form>
-    </div>
-
     <div *ngIf="isMenuOptionActive(3)">
       <h2>Informacje o mnie:</h2>
-      
+
       <ul>
         <li *ngFor="let info of infoAboutMe">{{info}}</li>
       </ul>

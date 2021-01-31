@@ -5,10 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -23,6 +20,7 @@ public class Person implements Serializable {
 
     @Column(unique = true)
     @Email
+    @NotNull
     private String email;
 
     @Size(min=5, max = 64)
@@ -37,6 +35,7 @@ public class Person implements Serializable {
     private Insurance insurance;
 
     @Enumerated(EnumType.STRING)
+    @NotNull
     private Role role;
 
     @JsonBackReference

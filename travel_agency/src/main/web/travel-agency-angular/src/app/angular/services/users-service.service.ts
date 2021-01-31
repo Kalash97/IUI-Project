@@ -28,7 +28,7 @@ export class UsersService {
   }
 
   createUser(user) {
-    return this.http.post(this.endpointRoot + '/add', user);
+    return this.http.post(this.endpointRoot + '/register', user);
   }
 
   deleteUser(user) {
@@ -40,7 +40,7 @@ export class UsersService {
   }
 
   getInfoAboutMe() {
-    return this.http.get<string[]>(this.endpointRoot + '/info-about-me');
+    return this.http.get<IUser>(this.endpointRoot + '/info-about-me');
   }
 
   getLoggedUser() {
@@ -49,7 +49,7 @@ export class UsersService {
 
   login(credentials: IUserCredentials) {
 
-    return this.http.post<IUserToken>('user/authenticate', credentials);
+    return this.http.post<IUserToken>(this.endpointRoot +'/authenticate', credentials);
     // function authSuccessHandler(response: IUserToken) {
     //
     //   localStorage.setItem("id_token", response.id_token);

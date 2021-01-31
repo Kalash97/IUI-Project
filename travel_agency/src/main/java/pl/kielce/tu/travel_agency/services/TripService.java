@@ -114,7 +114,7 @@ public class TripService extends AbstractEntityService<Trip> {
         List<Long> personReservedTrips = utils.getCurrentPerson()
                 .getTickets()
                 .stream()
-                .map(ticket -> ticket.getTrip().getId())
+                .map(ticket -> ticket.getTrip()!=null?ticket.getTrip().getId():null)
                 .collect(Collectors.toList());
         return trips.stream()
                 .filter(tripDto -> !personReservedTrips.contains(tripDto.getId()))

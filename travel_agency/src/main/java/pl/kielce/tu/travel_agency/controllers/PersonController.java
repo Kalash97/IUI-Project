@@ -8,6 +8,8 @@ import pl.kielce.tu.travel_agency.model.entities.Person;
 import pl.kielce.tu.travel_agency.security.SecurityUtils;
 import pl.kielce.tu.travel_agency.services.PersonService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/mvc/user")
 public class PersonController {
@@ -46,5 +48,10 @@ public class PersonController {
     @GetMapping("/info-about-me")
     public ResponseEntity<PersonDto> currentUser() throws Exception {
         return ResponseEntity.ok(new PersonDto(utils.getCurrentPerson()));
+    }
+
+    @GetMapping("/find")
+    public ResponseEntity<List<PersonDto>> findByFirstnameAndLastname(@RequestParam String firstname, @RequestParam String lastname) {
+        return ResponseEntity.ok(personService.findByFirstnameAndLastname(firstname, lastname));
     }
 }

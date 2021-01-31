@@ -24,7 +24,6 @@ import { PageLogoutComponent } from './angular/pages/page-logout/page-logout.com
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-
     AppRoutingModule
   ],
   providers: [{

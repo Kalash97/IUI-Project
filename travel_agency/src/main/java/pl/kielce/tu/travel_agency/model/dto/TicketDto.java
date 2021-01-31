@@ -25,5 +25,6 @@ public class TicketDto {
         this.type = ticket.getType();
         this.trip = ticket.getTrip()!=null?new TripDto(ticket.getTrip()):null;
         this.person = ticket.getPerson()!=null?new PersonDto(ticket.getPerson()):null;
+        this.tripName = ticket.getTrip()!=null?ticket.getTrip().getName():null;
     }
 }
