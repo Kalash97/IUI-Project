@@ -37,18 +37,25 @@ public class TicketController {
     }
 
     @GetMapping("/cancel-ticket")
-    public void cancelTicket(@RequestParam Long ticketId) throws Exception{
+    public ResponseEntity<?> cancelTicket(@RequestParam Long ticketId) throws Exception{
         ticketService.cancelTicket(ticketId);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/reserve-ticket")
-    public void reserveTicket(@RequestParam Long tripId) throws Exception{
+    public ResponseEntity<?> reserveTicket(@RequestParam Long tripId) throws Exception{
         ticketService.reserveTicket(tripId);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/of-user/{id}")
     public ResponseEntity<List<TicketDto>> getTicketsOfUser(@PathVariable Long id) {
         return ResponseEntity.ok(ticketService.getTicketsOfUserId(id));
+    }
+
+    @GetMapping("/of-user")
+    public ResponseEntity<List<TicketDto>> findTicketByUserPersonalData(@RequestParam String firstname, @RequestParam String lastname) {
+        return ResponseEntity.ok(ticketService.getTicketsByFirstnameAndLastname(firstname, lastname));
     }
 
     @GetMapping("/my-tickets")

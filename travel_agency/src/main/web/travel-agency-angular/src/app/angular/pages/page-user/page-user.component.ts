@@ -11,7 +11,7 @@ import { UsersService } from '../../services/users-service.service';
 })
 export class PageUserComponent extends PageComponent implements OnInit {
 
-  infoAboutMe;
+  infoAboutMe: string[];
   searchedUsers: IUser[];
   formCreateUser;
   formSearchUser;
@@ -22,17 +22,12 @@ export class PageUserComponent extends PageComponent implements OnInit {
 
   ngOnInit(): void {
     this.setUpMenuOptions([
-      { id: '1', label: 'Wyszukaj użytkownika' },
-      { id: '2', label: 'Załóż nowe konto' },
-      { id: '3', label: 'Informacje o mnie' }
+      { id: '1', label: 'Informacje o mnie' },
+      // this.userService?.currentUser?.role=='EMPLOYEE'?{ id: '2', label: 'Wyszukaj użytkownika' }:null,
     ]);
-
-    this.formCreateUser = this.formBuilder.group({
-      firstname: 'name',
-      lastname: 'last name',
-      login: 'login',
-      password: 'haslo'
-    });
+    if(this.userService?.currentUser?.role=='EMPLOYEE') {
+      this._menuOptions['1'] = { id: '2', label: 'Wyszukaj użytkownika' };
+    }
 
     this.formSearchUser = this.formBuilder.group({
       firstname: 'name',
@@ -40,7 +35,9 @@ export class PageUserComponent extends PageComponent implements OnInit {
     });
 
     this.userService.getInfoAboutMe()
-      .subscribe(response => this.infoAboutMe = response);
+      .subscribe(response => {
+        this.infoAboutMe[0] = response.firstname;
+      });
   }
 
   findUser() {
@@ -50,16 +47,8 @@ export class PageUserComponent extends PageComponent implements OnInit {
       .subscribe(response => this.searchedUsers = response);
   }
 
-  createUser() {
-    const buildedUser: IUserCredentials = this.formCreateUser.value;
-
-    this.userService.createUser(buildedUser)
-      .subscribe(response => console.log(response));
-  }
-
   deleteUser(){
     this.userService.deleteMeAndLogout()
       .subscribe(response => console.log(response));
   }
-
 }

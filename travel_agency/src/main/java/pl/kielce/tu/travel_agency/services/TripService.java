@@ -9,7 +9,12 @@ import pl.kielce.tu.travel_agency.model.dto.TripDto;
 import pl.kielce.tu.travel_agency.model.entities.Trip;
 import pl.kielce.tu.travel_agency.model.repositories.HotelRepo;
 import pl.kielce.tu.travel_agency.model.repositories.TripRepo;
+import pl.kielce.tu.travel_agency.security.SecurityUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,10 +25,15 @@ public class TripService extends AbstractEntityService<Trip> {
 
     private final HotelRepo hotelRepo;
 
+    private final SecurityUtils utils;
+
     @Autowired
-    public TripService(TripRepo repo, HotelRepo hotelRepo) {
+    public TripService(TripRepo repo,
+                       HotelRepo hotelRepo,
+                       SecurityUtils utils) {
         this.tripRepo = repo;
         this.hotelRepo = hotelRepo;
+        this.utils = utils;
     }
 
 
@@ -37,11 +47,13 @@ public class TripService extends AbstractEntityService<Trip> {
         Trip trip = new Trip();
         trip.setStartingDate(tripDto.getStartingDate());
         trip.setHotels(
-                tripDto.getHotels()
-                .stream()
-                .map(hotelDto -> hotelRepo.getOne(hotelDto.getId()))
-                .collect(Collectors.toList())
+                tripDto.getHotels()!=null?
+                        tripDto.getHotels()
+                                .stream()
+                                .map(hotelDto -> hotelRepo.getOne(hotelDto.getId()))
+                                .collect(Collectors.toList()):null
         );
+        trip.setName(tripDto.getName());
         trip.setDuration(tripDto.getDuration());
         tripRepo.save(trip);
         return new TripDto(trip);
@@ -84,6 +96,42 @@ public class TripService extends AbstractEntityService<Trip> {
     public List<TripDto> getAllTrips() {
         return tripRepo
                 .findAll()
+                .stream()
+                .map(TripDto::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<TripDto> getAvailableTrips() throws Exception{
+        List<TripDto> trips = getAllTrips()
+                .stream()
+                .filter(
+                        tripDto -> tripDto.getStartingDate().after(new Date())
+                )
+                .collect(Collectors.toList());
+//        trips
+//                .stream()
+//                .flatMap(tripDto -> tripDto.getTickets().stream())
+//                .map(ticketDto -> ticketDto.getId())
+        List<Long> personReservedTrips;
+        try {
+            personReservedTrips = utils.getCurrentPerson()
+                    .getTickets()
+                    .stream()
+                    .map(ticket -> ticket.getTrip()!=null?ticket.getTrip().getId():null)
+                    .collect(Collectors.toList());
+        } catch(Exception e) {
+            personReservedTrips = new ArrayList<>();
+        }
+        List<Long> finalPersonReservedTrips = personReservedTrips;
+        return trips.stream()
+                .filter(tripDto -> !finalPersonReservedTrips.contains(tripDto.getId()))
+                .collect(Collectors.toList());
+
+    }
+
+    public List<TripDto> findByCriteria(String date, int duration, String name) throws Exception {
+        return tripRepo
+                .findByCriteria(new SimpleDateFormat("yyyy-MM-dd").parse(date), duration, name)
                 .stream()
                 .map(TripDto::new)
                 .collect(Collectors.toList());

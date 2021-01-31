@@ -1,0 +1,47 @@
+<page-body>
+  <div class="menu">
+    <ul>
+      <li *ngFor="let opt of getMenuOptions()" (click)="clickedMenuOption(opt)">{{opt.label}}</li>
+    </ul>
+  </div>
+
+  <div class="content login-component">
+    <div *ngIf="isMenuOptionActive(1)">
+      <h2>Zaloguj się</h2>
+      <form [formGroup]="formLogin" (ngSubmit)="tryLogin()">
+        <label>
+          <input type="email" placeholder="E-mail" formControlName="email"/> <br/>
+        </label>
+        <label>
+          <input type="password" placeholder="Password" formControlName="password"/><br/>
+        </label>
+        <label>
+          <input type="checkbox" formControlName="rememberMe"/>
+          Nie wylogowuj mnie <br/>
+        </label>
+        <button type="submit">Zaloguj</button>
+      </form>
+      <div *ngIf="failedLogin">Logowanie nieudane.</div>
+    </div>
+
+    <div *ngIf="isMenuOptionActive(2)">
+      <h2>Załóż nowe konto:</h2>
+      <form [formGroup]="formCreateUser" (ngSubmit)="createUser()">
+        <label>
+          <input type="text" placeholder="Imię" formControlName="firstname" />Imie<br />
+        </label>
+        <label>
+          <input type="text" placeholder="Nazwisko" formControlName="lastname" />Nazwisko<br />
+        </label>
+        <label>
+          <input type="text" placeholder="E-mail" formControlName="email" />Login<br />
+        </label>
+        <label>
+          <input type="password" placeholder="Hasło" formControlName="password" />Hasło<br />
+        </label>
+        <button type="submit">Zatwierdź</button>
+      </form>
+    </div>
+  </div>
+
+</page-body>

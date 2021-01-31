@@ -6,6 +6,8 @@ import { PageError404Component } from './angular/pages/page-error404/page-error4
 import { PageOffersComponent } from './angular/pages/page-offers/page-offers.component';
 import { PageTicketsComponent } from './angular/pages/page-tickets/page-tickets.component';
 import { PageUserComponent } from './angular/pages/page-user/page-user.component';
+import { PageLoginComponent } from "./angular/pages/page-login/page-login.component";
+import {PageLogoutComponent} from "./angular/pages/page-logout/page-logout.component";
 
 const routes: Routes = [
     { path: '', component: PageOffersComponent },
@@ -13,6 +15,10 @@ const routes: Routes = [
     { path: 'tickets', component: PageTicketsComponent },
     { path: 'user', component: PageUserComponent },
     { path: 'contact', component: PageContactComponent },
+    { path: 'login', component: PageLoginComponent },
+    { path: 'logout', component: PageLogoutComponent},
+
+
     { path: '**', component: PageError404Component }
 ];
 
@@ -27,5 +33,7 @@ export const PagesOfSite = [
     PageError404Component,
     PageOffersComponent,
     PageTicketsComponent,
-    PageUserComponent
+    PageUserComponent,
+    PageLoginComponent,
+    PageLogoutComponent
 ];

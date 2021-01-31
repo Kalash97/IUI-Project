@@ -14,15 +14,15 @@
           <th>Data startu</th>
           <th>Czas trwania</th>
           <th>Nazwa</th>
-          <th>Status</th>
-          <th>Akcje</th>
+<!--          <th>Status</th>-->
+<!--          <th>Akcje</th>-->
         </tr>
         <tr *ngFor="let trip of allOffers">
           <td>{{trip.startingDate}}</td>
-          <td>{{trip.duration}}</td>
+          <td>{{trip.duration}} {{trip.duration==1?'dzień':'dni'}}</td>
           <td>{{trip.name}}</td>
-          <td></td>
-          <td></td>
+<!--          <td></td>-->
+<!--          <td></td>-->
         </tr>
       </table>
     </div>
@@ -34,14 +34,14 @@
           <th>Data startu</th>
           <th>Czas trwania</th>
           <th>Nazwa</th>
-          <th>Status</th>
+<!--          <th>Status</th>-->
           <th>Akcje</th>
         </tr>
         <tr *ngFor="let trip of availableOffers">
           <td>{{trip.startingDate}}</td>
-          <td>{{trip.duration}}</td>
+          <td>{{trip.duration}} {{trip.duration==1?'dzień':'dni'}}</td>
           <td>{{trip.name}}</td>
-          <td></td>
+<!--          <td></td>-->
           <td>
             <div class="action-btn" (click)="reserveTicket(trip)">Zarezerwuj</div>
           </td>

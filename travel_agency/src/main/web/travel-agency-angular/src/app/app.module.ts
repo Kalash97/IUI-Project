@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule, PagesOfSite } from './app-routing.module';
@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 
 import { TopMenuComponent } from './angular/layout/top-menu/top-menu.component';
 import { PageBodyComponent } from './angular/layout/page-body/page-body.component';
+import {AppHttpInterceptor} from "./angular/services/http.interceptor";
+import { PageLogoutComponent } from './angular/pages/page-logout/page-logout.component';
 
 @NgModule({
   declarations: [
@@ -22,10 +24,13 @@ import { PageBodyComponent } from './angular/layout/page-body/page-body.componen
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-
     AppRoutingModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AppHttpInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

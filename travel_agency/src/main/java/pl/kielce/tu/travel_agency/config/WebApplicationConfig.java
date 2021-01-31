@@ -85,7 +85,22 @@ public class WebApplicationConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/authenticate", "/user/register", "/*", "/index.html")
+                .antMatchers(
+                        "/user/authenticate",
+                        "/user/register",
+                        "/*",
+                        "/index.html",
+                        "/mvc/city/all-cities",
+                        "/mvc/city/id/**",
+                        "/mvc/country/all-countries",
+                        "/mvc/country/id/**",
+                        "/mvc/hotel/all-hotels",
+                        "/mvc/hotel/id/**",
+                        "/mvc/trip/all-trips",
+                        "/mvc/trip/id/**",
+                        "/mvc/trip/available-trips",
+                        "/mvc/trip/find-trips/**"
+                )
                 .permitAll()
                 .and()
                 .authorizeRequests()
@@ -110,7 +125,7 @@ public class WebApplicationConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .anyRequest()
-                .authenticated()
+                .permitAll()
                 .and()
                 .logout()
                 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))

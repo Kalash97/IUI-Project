@@ -28,7 +28,7 @@ export class OffersService {
     let params = '?';
     params += trip.startingDate ? 'startingDate=' + trip.startingDate + '&' : '';
     params += trip.duration ? 'duration=' + trip.duration + '&' : '';
-    params += trip.name ? 'name=' + trip.name + '&' : '';
+    params += trip.name ? 'name=' + trip.name : '';
     return this.http.get<ITrip[]>(this.endpointRoot + '/find-trips' + params);
   }
 

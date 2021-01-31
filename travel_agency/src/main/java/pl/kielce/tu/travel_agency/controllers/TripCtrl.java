@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.kielce.tu.travel_agency.model.dto.TripDto;
 import pl.kielce.tu.travel_agency.services.TripService;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -52,5 +53,15 @@ public class TripCtrl {
     public ResponseEntity<?> deleteTrip(@PathVariable Long id) {
         tripService.deleteTrip(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/available-trips")
+    public ResponseEntity<?> getAvailableTrips() throws Exception{
+        return ResponseEntity.ok(tripService.getAvailableTrips());
+    }
+
+    @GetMapping("/find-trips")
+    public ResponseEntity<?> findTripsByCriteria(@RequestParam(required = false) String startingDate, @RequestParam(required = false) Integer duration, @RequestParam(required = false) String name) throws Exception {
+        return ResponseEntity.ok(tripService.findByCriteria(startingDate, duration, name));
     }
 }

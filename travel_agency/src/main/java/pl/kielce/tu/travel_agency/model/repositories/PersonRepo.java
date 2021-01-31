@@ -14,4 +14,6 @@ public interface PersonRepo extends JpaRepository<Person, Long> {
     Optional<Person> findByEmail(String s);
 
     List<Person> findByRole(Role role);
+
+    List<Person> findByFirstnameContainingAndLastnameContaining(String firstname, String lastname);
 }

@@ -5,12 +5,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.HttpClientErrorException;
+import pl.kielce.tu.travel_agency.exception.ForbiddenException;
 import pl.kielce.tu.travel_agency.model.dto.TicketDto;
 import pl.kielce.tu.travel_agency.model.entities.Person;
 import pl.kielce.tu.travel_agency.model.entities.Ticket;
 import pl.kielce.tu.travel_agency.model.repositories.PersonRepo;
 import pl.kielce.tu.travel_agency.model.repositories.TicketRepo;
 import pl.kielce.tu.travel_agency.model.repositories.TripRepo;
+import pl.kielce.tu.travel_agency.security.SecurityUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,14 +25,17 @@ public class TicketService extends AbstractEntityService<Ticket> {
     private final TicketRepo ticketRepo;
     private final PersonRepo personRepo;
     private final TripRepo tripRepo;
+    private final SecurityUtils utils;
 
     @Autowired
     public TicketService(TicketRepo repo,
                          PersonRepo personRepo,
-                         TripRepo tripRepo) {
+                         TripRepo tripRepo,
+                         SecurityUtils utils) {
         this.ticketRepo = repo;
         this.personRepo = personRepo;
         this.tripRepo = tripRepo;
+        this.utils = utils;
     }
 
     @Override
@@ -84,21 +90,52 @@ public class TicketService extends AbstractEntityService<Ticket> {
         return ticketRepo
                 .findAll()
                 .stream().map(TicketDto::new)
+                .peek(ticketDto -> ticketDto.setTripName(ticketDto.getTrip().getName()))
                 .collect(Collectors.toList());
     }
 
     public List<TicketDto> getTicketsOfUserId(Long id) {
-        return ticketRepo.findByPersonId(id)
+        List<TicketDto> tickets = ticketRepo.findByPersonId(id)
                 .stream()
                 .map(TicketDto::new)
+                .peek(ticketDto -> ticketDto.setTripName(ticketDto.getTrip().getName()))
                 .collect(Collectors.toList());
+        return tickets;
     }
 
-    public void cancelTicket(Long ticketId) {
-        //TODO Implement
+    public List<TicketDto> getTicketsByFirstnameAndLastname(String firstname, String lastname) {
+        return personRepo
+                .findByFirstnameContainingAndLastnameContaining(firstname, lastname)
+                .stream()
+                .flatMap(person -> person.getTickets().stream())
+                .map(TicketDto::new)
+                .peek(ticketDto -> ticketDto.setTripName(ticketDto.getTrip().getName()))
+                .collect(Collectors.toList());
+
     }
 
-    public void reserveTicket(Long tripId) {
-        //TODO Implement
+    public void cancelTicket(Long ticketId) throws Exception{
+        if(!ticketRepo.existsById(ticketId)) {
+            throw new ResourceNotFoundException("Couldn't find ticket with given ID");
+        }
+        Ticket ticket = ticketRepo.getOne(ticketId);
+        if(ticket.getPerson().getId() != utils.getCurrentPerson().getId()) {
+            throw new ForbiddenException("Ticket doesn't belong to a given user!");
+        }
+        deleteTicket(ticketId);
     }
+
+    public void reserveTicket(Long tripId) throws Exception{
+        if(!tripRepo.existsById(tripId)) {
+            throw new ResourceNotFoundException("Nie znaleziono wycieczki o podanym ID");
+        }
+        Ticket ticket = new Ticket();
+        ticket.setTrip(tripRepo.getOne(tripId));
+        ticket.setPerson(utils.getCurrentPerson());
+        ticket.setPrice(0);
+        ticket.setType("Normal");
+        ticketRepo.save(ticket);
+    }
+
+
 }
