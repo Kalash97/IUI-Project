@@ -61,7 +61,7 @@ public class TripCtrl {
     }
 
     @GetMapping("/find-trips")
-    public ResponseEntity<?> findTripsByCriteria(@RequestParam String startingDate, @RequestParam Integer duration, @RequestParam String name) throws Exception {
+    public ResponseEntity<?> findTripsByCriteria(@RequestParam(required = false) String startingDate, @RequestParam(required = false) Integer duration, @RequestParam(required = false) String name) throws Exception {
         return ResponseEntity.ok(tripService.findByCriteria(startingDate, duration, name));
     }
 }

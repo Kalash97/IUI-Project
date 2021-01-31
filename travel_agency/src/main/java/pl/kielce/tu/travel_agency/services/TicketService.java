@@ -90,6 +90,7 @@ public class TicketService extends AbstractEntityService<Ticket> {
         return ticketRepo
                 .findAll()
                 .stream().map(TicketDto::new)
+                .peek(ticketDto -> ticketDto.setTripName(ticketDto.getTrip().getName()))
                 .collect(Collectors.toList());
     }
 
@@ -108,6 +109,7 @@ public class TicketService extends AbstractEntityService<Ticket> {
                 .stream()
                 .flatMap(person -> person.getTickets().stream())
                 .map(TicketDto::new)
+                .peek(ticketDto -> ticketDto.setTripName(ticketDto.getTrip().getName()))
                 .collect(Collectors.toList());
 
     }

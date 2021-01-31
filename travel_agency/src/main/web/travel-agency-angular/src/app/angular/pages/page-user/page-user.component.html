@@ -7,7 +7,7 @@
   </div>
 
   <div class="content">
-    <div *ngIf="isMenuOptionActive(1)">
+    <div *ngIf="isMenuOptionActive(2)">
       <h2>Wyszukaj użytkownika:</h2>
       <form [formGroup]="formSearchUser" (ngSubmit)="findUser()">
         <label>
@@ -37,11 +37,14 @@
       </div>
     </div>
 
-    <div *ngIf="isMenuOptionActive(3)">
+    <div *ngIf="isMenuOptionActive(1)">
       <h2>Informacje o mnie:</h2>
 
-      <ul>
-        <li *ngFor="let info of infoAboutMe">{{info}}</li>
+      <ul *ngIf="userService.currentUser != null">
+<!--        <li *ngFor="let info of infoAboutMe">{{info}}</li>-->
+        <li>Imię: {{userService.currentUser.firstname}}</li>
+        <li>Nazwisko: {{userService.currentUser.lastname}}</li>
+        <li>Adres e-mail: {{userService.currentUser.email}}</li>
       </ul>
 
       <p>Skasuj konto:</p>

@@ -98,7 +98,8 @@ public class WebApplicationConfig extends WebSecurityConfigurerAdapter {
                         "/mvc/hotel/id/**",
                         "/mvc/trip/all-trips",
                         "/mvc/trip/id/**",
-                        "/mvc/trip/available-trips"
+                        "/mvc/trip/available-trips",
+                        "/mvc/trip/find-trips/**"
                 )
                 .permitAll()
                 .and()

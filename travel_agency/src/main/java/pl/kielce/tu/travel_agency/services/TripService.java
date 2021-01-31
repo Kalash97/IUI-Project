@@ -13,6 +13,7 @@ import pl.kielce.tu.travel_agency.security.SecurityUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -111,13 +112,19 @@ public class TripService extends AbstractEntityService<Trip> {
 //                .stream()
 //                .flatMap(tripDto -> tripDto.getTickets().stream())
 //                .map(ticketDto -> ticketDto.getId())
-        List<Long> personReservedTrips = utils.getCurrentPerson()
-                .getTickets()
-                .stream()
-                .map(ticket -> ticket.getTrip()!=null?ticket.getTrip().getId():null)
-                .collect(Collectors.toList());
+        List<Long> personReservedTrips;
+        try {
+            personReservedTrips = utils.getCurrentPerson()
+                    .getTickets()
+                    .stream()
+                    .map(ticket -> ticket.getTrip()!=null?ticket.getTrip().getId():null)
+                    .collect(Collectors.toList());
+        } catch(Exception e) {
+            personReservedTrips = new ArrayList<>();
+        }
+        List<Long> finalPersonReservedTrips = personReservedTrips;
         return trips.stream()
-                .filter(tripDto -> !personReservedTrips.contains(tripDto.getId()))
+                .filter(tripDto -> !finalPersonReservedTrips.contains(tripDto.getId()))
                 .collect(Collectors.toList());
 
     }

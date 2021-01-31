@@ -22,10 +22,12 @@ export class PageUserComponent extends PageComponent implements OnInit {
 
   ngOnInit(): void {
     this.setUpMenuOptions([
-      { id: '1', label: 'Wyszukaj użytkownika' },
-      //{ id: '2', label: 'Załóż nowe konto' },
-      { id: '3', label: 'Informacje o mnie' }
+      { id: '1', label: 'Informacje o mnie' },
+      // this.userService?.currentUser?.role=='EMPLOYEE'?{ id: '2', label: 'Wyszukaj użytkownika' }:null,
     ]);
+    if(this.userService?.currentUser?.role=='EMPLOYEE') {
+      this._menuOptions['1'] = { id: '2', label: 'Wyszukaj użytkownika' };
+    }
 
     this.formSearchUser = this.formBuilder.group({
       firstname: 'name',
