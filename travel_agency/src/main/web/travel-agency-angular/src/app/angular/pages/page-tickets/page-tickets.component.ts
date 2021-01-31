@@ -16,6 +16,8 @@ export class PageTicketsComponent extends PageComponent implements OnInit {
 
   formSearchByUser;
 
+  ticketCancellationSuccess: boolean = false;
+
   constructor(private formBuilder: FormBuilder, private ticketsService: TicketsService) {
     super();
   }
@@ -44,6 +46,11 @@ export class PageTicketsComponent extends PageComponent implements OnInit {
 
   cancelTicket(ticket) {
     this.ticketsService.cancelTicket(ticket)
-      .subscribe(response => console.log(response));
+      .subscribe(response => {
+        console.log(response);
+        this.ticketCancellationSuccess = true;
+        setTimeout(() => {this.ticketCancellationSuccess = false}, 3000);
+      });
+
   }
 }

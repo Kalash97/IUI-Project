@@ -9,6 +9,7 @@
   <div class="content">
     <div *ngIf="isMenuOptionActive(1)">
       <h2>Moje bilety:</h2>
+      <div *ngIf="ticketCancellationSuccess">Bilet anulowany.</div>
       <table>
         <tr>
           <th>Nazwa wycieczki</th>
@@ -28,7 +29,6 @@
         </tr>
       </table>
     </div>
-
     <div *ngIf="isMenuOptionActive(2)">
       <h2>Wyszukaj bilety użytkownika:</h2>
       <form [formGroup]="formSearchByUser" (ngSubmit)="findTicketsByUser()">

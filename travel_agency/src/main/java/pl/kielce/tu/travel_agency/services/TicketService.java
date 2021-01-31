@@ -94,10 +94,12 @@ public class TicketService extends AbstractEntityService<Ticket> {
     }
 
     public List<TicketDto> getTicketsOfUserId(Long id) {
-        return ticketRepo.findByPersonId(id)
+        List<TicketDto> tickets = ticketRepo.findByPersonId(id)
                 .stream()
                 .map(TicketDto::new)
+                .peek(ticketDto -> ticketDto.setTripName(ticketDto.getTrip().getName()))
                 .collect(Collectors.toList());
+        return tickets;
     }
 
     public List<TicketDto> getTicketsByFirstnameAndLastname(String firstname, String lastname) {

@@ -66,6 +66,8 @@ export class PageOffersComponent extends PageComponent implements OnInit {
 
   reserveTicket(trip) {
     this.ticketService.reserveTicket(trip)
-      .subscribe(response => console.log(response))
+      .subscribe(response => console.log(response));
+    this.offersService.getAvailableTrips()
+      .subscribe(response => this.availableOffers = response);
   }
 }
